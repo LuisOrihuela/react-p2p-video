@@ -1,0 +1,30 @@
+.banner {
+  display: flex;
+  height: 100vh;
+  background: url("https://cdn.pixabay.com/photo/2016/10/20/18/35/sunrise-1756274_1280.jpg");
+  background-size: cover;
+  align-items: center;
+  justify-content: center;
+  padding-right: 30px;
+}
+
+.banner-text {
+  font-family: Roboto;
+  color: white;
+  font-size: 2.5rem;
+  width: 35%;
+  text-align: justify;
+  background-color: rgba(5, 5, 5, 0.7);
+  /* border: 1px solid white; */
+  border-radius: 8px;
+  padding: 40px;
+}
+
+.banner-text-buttons {
+  display: flex;
+  justify-content: center;
+}
+
+.button {
+  margin: 10px;
+}

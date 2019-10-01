@@ -3,15 +3,26 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@material-ui/core": "^4.4.3",
+    "@material-ui/icons": "^4.4.3",
+    "axios": "^0.19.0",
+    "bulma": "^0.7.5",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
-    "react-scripts": "3.1.2"
+    "react-router-dom": "^5.1.0",
+    "react-scripts": "3.1.2",
+    "react-socket-io": "^0.2.5",
+    "react-webcam": "^3.0.1",
+    "simple-peer": "^9.6.0",
+    "socket.io-client": "^2.3.0",
+    "typeface-roboto": "0.0.75"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "watch": "npx watchify ./src/App.js -o ./public/bundle.js"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -27,5 +38,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "watchify": "^3.11.1"
   }
 }

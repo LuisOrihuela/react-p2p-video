@@ -1,0 +1,1 @@
+console.error("\n/mnt/d/ProjectsD/react-p2p-video/src/App.js:3\nimport Peer from \"simple-peer\";\n^\nParseError: 'import' and 'export' may appear only with 'sourceType: module'");
