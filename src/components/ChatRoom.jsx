@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import openSocket from "socket.io-client";
 import Peer from "simple-peer";
 import "./ChatRoom.css";
+
+import axios from "./helpers/axios";
 let client = {};
 let peer;
 
@@ -14,7 +16,7 @@ class ChatRoom extends Component {
     }
   };
   componentDidMount = stream => {
-    const socket = openSocket("http://localhost:4000");
+    const socket = openSocket(axios.get("/"));
     navigator.mediaDevices
       .getUserMedia({
         video: true,

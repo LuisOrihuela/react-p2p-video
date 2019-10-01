@@ -1,7 +1,16 @@
-import React from "react";
+import React, { Component } from "react";
+import "./Dashboard.css";
+import NavBar from "./NavBar";
 
-const Dashboard = () => {
-  return <div>This is the DashBoard</div>;
-};
+class Dashboard extends Component {
+  render() {
+    return (
+      <div>
+        <NavBar />
+        Dashboard
+      </div>
+    );
+  }
+}
 
 export default Dashboard;

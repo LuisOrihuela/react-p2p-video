@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "./Signup.css";
-import axios from "axios";
+// import axios from "axios";
+import axios from "./helpers/axios";
 
-const Login = () => {
+const Login = props => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -22,8 +23,12 @@ const Login = () => {
       password
     };
     axios
-      .post("http://localhost:4000/login", userData)
-      .then(res => console.log(res.data));
+      .post("/user/login", userData)
+      .then(res => {
+        localStorage.setItem("user", res.data);
+        props.history.push("/dashboard");
+      })
+      .catch(err => console.log(err));
   };
   return (
     <div className="flex-container">

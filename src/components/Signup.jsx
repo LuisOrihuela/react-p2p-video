@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "./Signup.css";
-import axios from "axios";
+// import axios from "axios";
+
+import axios from "./helpers/axios";
 
 const Signup = () => {
   const [username, setUsername] = useState("");
@@ -15,9 +17,7 @@ const Signup = () => {
       email,
       password
     };
-    axios
-      .post("http://localhost:4000/signup", userData)
-      .then(res => console.log(res.data));
+    axios.post("user/signup", userData).then(res => console.log(res.data));
   };
 
   const updateUsername = e => {
