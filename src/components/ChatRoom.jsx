@@ -16,7 +16,7 @@ class ChatRoom extends Component {
     }
   };
   componentDidMount = stream => {
-    const socket = openSocket(axios.get("/"));
+    const socket = openSocket("https://p2p-backend.herokuapp.com");
     navigator.mediaDevices
       .getUserMedia({
         video: true,
