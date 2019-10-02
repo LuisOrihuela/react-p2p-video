@@ -26,7 +26,8 @@ const Login = props => {
       .post("/user/login", userData)
       .then(res => {
         localStorage.setItem("user", res.data);
-        props.history.push("/dashboard");
+        // props.history.push("/dashboard");
+        props.history.push("/chatroom");
       })
       .catch(err => console.log(err));
   };
