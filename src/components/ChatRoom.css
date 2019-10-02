@@ -69,7 +69,7 @@
   border-bottom-left-radius: 8px;
 }
 
-.button {
+.button-enabled {
   display: inline-block;
   background-color: rgb(13, 211, 168);
   color: white;
@@ -79,6 +79,7 @@
 }
 
 .button-disabled {
+  display: inline-block;
   background-color: gray;
   color: white;
   border: none;

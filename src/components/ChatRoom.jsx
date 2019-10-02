@@ -31,7 +31,7 @@ class ChatRoom extends Component {
 
         const InitPeer = type => {
           console.log("InitPeer");
-          let peer = new Peer({
+          peer = new Peer({
             initiator: type === "init" ? true : false,
             stream: stream,
             trickle: false
@@ -175,7 +175,7 @@ class ChatRoom extends Component {
               className={
                 this.state.newMessage.trim() === ""
                   ? "button-disabled"
-                  : "button"
+                  : "button-enabled"
               }
             >
               Send
