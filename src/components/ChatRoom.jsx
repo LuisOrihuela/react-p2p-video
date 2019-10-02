@@ -3,7 +3,6 @@ import openSocket from "socket.io-client";
 import Peer from "simple-peer";
 import "./ChatRoom.css";
 
-import axios from "./helpers/axios";
 let client = {};
 let peer;
 
@@ -15,6 +14,8 @@ class ChatRoom extends Component {
       background: "black"
     }
   };
+
+  //https://p2p-backend.herokuapp.com
   componentDidMount = stream => {
     const socket = openSocket("https://p2p-backend.herokuapp.com");
     navigator.mediaDevices
@@ -30,7 +31,7 @@ class ChatRoom extends Component {
 
         const InitPeer = type => {
           console.log("InitPeer");
-          peer = new Peer({
+          let peer = new Peer({
             initiator: type === "init" ? true : false,
             stream: stream,
             trickle: false
@@ -40,9 +41,10 @@ class ChatRoom extends Component {
             console.log("Entered stream");
             CreateVideo(stream);
           });
-          //   peer.on("close", () => {
-          //     peer.destroy();
-          //   });
+          peer.on("close", () => {
+            document.getElementById("peerVideo").remove();
+            peer.destroy();
+          });
           peer.on("data", data => {
             console.log("data: ", data);
             this.setState({
@@ -144,7 +146,7 @@ class ChatRoom extends Component {
     return (
       <div className="chatroom-container">
         <div className="video-container">
-          <video className="video"></video>
+          <video className="video" muted></video>
         </div>
 
         <div className="chat-container divider">

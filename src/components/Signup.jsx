@@ -5,23 +5,27 @@ import "./Signup.css";
 
 import axios from "./helpers/axios";
 
-const Signup = () => {
-  const [username, setUsername] = useState("");
+const Signup = props => {
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const signUp = e => {
     e.preventDefault();
     const userData = {
-      username,
+      name,
       email,
       password
     };
-    axios.post("user/signup", userData).then(res => console.log(res.data));
+    axios.post("user/signup", userData).then(res => {
+      localStorage.setItem("user", res.data);
+      // props.history.push("/dashboard");
+      props.history.push("/chatroom");
+    });
   };
 
   const updateUsername = e => {
-    setUsername(e.target.value);
+    setName(e.target.value);
   };
 
   const updatePassword = e => {
@@ -51,7 +55,7 @@ const Signup = () => {
                 className="input is-rounded is-medium"
                 type="text"
                 placeholder="Username"
-                value={username}
+                value={name}
                 onChange={updateUsername}
               />
               <span className="icon is-left">
