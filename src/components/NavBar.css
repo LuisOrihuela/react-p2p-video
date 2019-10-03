@@ -1,0 +1,23 @@
+.button-dark {
+  background: rgb(2, 0, 36);
+  background: linear-gradient(
+    90deg,
+    rgba(2, 0, 36, 0.944437149859944) 33%,
+    rgba(4, 4, 99, 0.986453956582633) 72%,
+    rgba(2, 2, 107, 1) 100%
+  );
+}
+
+.button-text {
+  color: white;
+  font-weight: bold;
+}
+
+.icon {
+  margin-left: 10px;
+}
+
+.icon-text {
+  font-weight: bold;
+  font-family: "Notable", sans-serif;
+}

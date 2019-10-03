@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import "./NavBar.css";
 
 const NavBar = () => {
   const removeToken = () => {
@@ -9,19 +10,34 @@ const NavBar = () => {
   return (
     <nav className="navbar is-transparent">
       <div className="navbar-brand">
-        <a className="navbar-item" href="https://bulma.io">
-          {/* <img
-            src="https://bulma.io/images/bulma-logo.png"
-            alt="Bulma: a modern CSS framework based on Flexbox"
-            width="112"
-            height="28"
-          /> */}
-          <i class="far fa-comments"></i>
-        </a>
+        <Link className="navbar-item" to="/dashboard">
+          <span className="icon-text">Talk-Talk</span>
+          <img
+            src="https://img.icons8.com/ios/50/000000/very-popular-topic.png"
+            width="30"
+            height="30"
+            alt="talk-talk icon"
+            className="icon"
+          ></img>
+        </Link>
+
+        <div
+          role="button"
+          className="navbar-burger burger"
+          aria-label="menu"
+          aria-expanded="false"
+          data-target="navbarBasicExample"
+        >
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </div>
       </div>
 
-      <div id="navbarExampleTransparentExample" className="navbar-menu">
-        <div className="navbar-start"></div>
+      <div id="navbarBasicExample" className="navbar-menu">
+        <div className="navbar-start">
+          {/* <a className="navbar-item">Home</a> */}
+        </div>
 
         <div className="navbar-end">
           <div className="navbar-item">
@@ -29,12 +45,12 @@ const NavBar = () => {
               <p className="control"></p>
               <p className="control">
                 <Link
-                  className="button is-primary"
+                  className="button is-black"
                   to="/login"
                   onClick={removeToken}
                 >
                   <span className="icon">
-                    <i class="fas fa-sign-out-alt"></i>
+                    <i alt="Logout icon" className="fas fa-sign-out-alt"></i>
                   </span>
                   <span>Log out</span>
                 </Link>

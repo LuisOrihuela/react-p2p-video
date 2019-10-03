@@ -1,6 +1,25 @@
+.welcome-title {
+  font-size: 2.5rem;
+  color: white;
+}
+
+@media (min-width: 1024px) {
+  .instructions {
+    margin-bottom: 20px;
+    color: white;
+  }
+}
+
 .dashboard-container {
-  /* height: 100vh;
-  width: 100vw; */
-  /* background: url("https://www.fg-a.com/wallpapers/2017-4-light-background-geo.jpg"); */
-  /* background-size: cover; */
+  font-family: "Roboto", sans-serif;
+  background: rgb(2, 0, 36);
+  background: linear-gradient(
+    90deg,
+    rgba(2, 0, 36, 0.944437149859944) 33%,
+    rgba(4, 4, 99, 0.986453956582633) 72%,
+    rgba(2, 2, 107, 1) 100%
+  );
+  /* background-size: ; */
+  height: 100%;
+  padding-bottom: 30px;
 }
