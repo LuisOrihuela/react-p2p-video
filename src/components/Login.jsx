@@ -25,9 +25,10 @@ const Login = props => {
     axios
       .post("/user/login", userData)
       .then(res => {
+        console.log(res.data);
         localStorage.setItem("user", res.data);
         // props.history.push("/dashboard");
-        props.history.push("/chatroom");
+        props.history.push("/dashboard");
       })
       .catch(err => console.log(err));
   };

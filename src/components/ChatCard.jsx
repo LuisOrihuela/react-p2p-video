@@ -1,7 +1,8 @@
-import React, { Component } from "react";
+import React from "react";
 import "./ChatCard.css";
+import { Link } from "react-router-dom";
 
-const Chatcard = ({ creator, level, subject }) => {
+const Chatcard = ({ creator, level, subject, creatorId }) => {
   return (
     <div className="card card-color">
       <header className="card-header">
@@ -23,9 +24,9 @@ const Chatcard = ({ creator, level, subject }) => {
         </div>
       </div>
       <footer className="card-footer">
-        <a href="#" className="card-footer-item">
+        <Link to={"/chatroom/" + creatorId} className="card-footer-item">
           Join
-        </a>
+        </Link>
       </footer>
     </div>
   );

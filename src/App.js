@@ -23,7 +23,7 @@ class App extends Component {
           <Route path="/login" component={Login} />
           <AuthenticatedComponent>
             <Route path="/dashboard" component={Dashboard} />
-            <Route path="/chatroom" component={ChatRoom} />
+            <Route path="/chatroom/:id" component={ChatRoom} />
           </AuthenticatedComponent>
         </Switch>
       </Router>

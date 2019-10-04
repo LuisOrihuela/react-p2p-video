@@ -5,6 +5,7 @@ import "./NavBar.css";
 const NavBar = () => {
   const removeToken = () => {
     localStorage.removeItem("user");
+    localStorage.removeItem("id");
   };
 
   return (

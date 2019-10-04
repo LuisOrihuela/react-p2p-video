@@ -25,11 +25,13 @@ class AuthenticatedComponent extends Component {
         headers: { "auth-token": jwt }
       })
       .then(res => {
-        console.log(res.data);
+        // console.log(res.data._id);
+        localStorage.setItem("id", res.data._id);
         this.setState({ user: res.data });
       })
       .catch(err => {
         localStorage.removeItem("user");
+        localStorage.removeItem("id");
         this.props.history.push("/login");
       });
   }
