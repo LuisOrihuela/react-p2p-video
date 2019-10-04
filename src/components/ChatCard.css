@@ -2,11 +2,6 @@
   font-size: 2.5rem;
 }
 
-.card-color {
-  /* background-color: rgba(5, 5, 5, 0.7); */
-  background: black;
-}
-
 .card {
   font-size: 1.5rem;
   border-radius: 8px;

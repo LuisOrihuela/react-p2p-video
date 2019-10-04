@@ -3,6 +3,10 @@ import "./ChatCard.css";
 import { Link } from "react-router-dom";
 
 const Chatcard = ({ creator, level, subject, creatorId }) => {
+  const getCreatorId = () => {
+    localStorage.setItem("creatorID", creatorId);
+  };
+
   return (
     <div className="card card-color">
       <header className="card-header">
@@ -24,7 +28,11 @@ const Chatcard = ({ creator, level, subject, creatorId }) => {
         </div>
       </div>
       <footer className="card-footer">
-        <Link to={"/chatroom/" + creatorId} className="card-footer-item">
+        <Link
+          to={"/chatroom/" + creatorId}
+          className="card-footer-item"
+          onClick={getCreatorId}
+        >
           Join
         </Link>
       </footer>

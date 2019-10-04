@@ -10,7 +10,8 @@ class AuthenticatedComponent extends Component {
     super(props);
 
     this.state = {
-      user: undefined
+      user: undefined,
+      chatrooms: []
     };
   }
 
@@ -25,7 +26,7 @@ class AuthenticatedComponent extends Component {
         headers: { "auth-token": jwt }
       })
       .then(res => {
-        // console.log(res.data._id);
+        console.log(res.data);
         localStorage.setItem("id", res.data._id);
         this.setState({ user: res.data });
       })

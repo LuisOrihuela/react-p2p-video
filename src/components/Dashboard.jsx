@@ -45,10 +45,6 @@ class Dashboard extends Component {
       id: localStorage.getItem("id")
     };
 
-    // this.setState({
-    //   chatrooms: [...this.state.chatrooms, chatroom]
-    // });
-
     axios.post("/user/dashboard", chatroom).then(res => {
       const chatroom = res.data;
       this.setState({ creatorId: chatroom.creatorId });
@@ -56,6 +52,13 @@ class Dashboard extends Component {
     });
     const redirect = "/chatroom/" + localStorage.getItem("id");
     this.props.history.push(redirect);
+  };
+
+  checkForUpdates = () => {
+    axios.get("/user/dashboard").then(res => {
+      console.log(res.data);
+      this.setState({ chatrooms: res.data });
+    }, 5000);
   };
 
   render() {
