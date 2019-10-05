@@ -1,11 +1,13 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import openSocket from "socket.io-client";
 import Peer from "simple-peer";
 import "./ChatRoom.css";
+let id = localStorage.getItem("creatorId");
 
 let client = {};
 let peer;
-const socket = openSocket("http://localhost:4000");
+const socket = openSocket("https://p2p-backend.herokuapp.com");
 
 class ChatRoom extends Component {
   state = {
@@ -18,6 +20,11 @@ class ChatRoom extends Component {
 
   //https://p2p-backend.herokuapp.com
   componentDidMount = stream => {
+    let { id } = this.props.match.params;
+
+    // socket.emit("join", id);
+
+    // console.log(localStorage.getItem("id"));
     navigator.mediaDevices
       .getUserMedia({
         video: true,
@@ -43,10 +50,9 @@ class ChatRoom extends Component {
           });
           peer.on("close", () => {
             // document.getElementById("peerVideo").remove();
-            // peer.destroy();
+            peer.destroy();
           });
           peer.on("data", data => {
-            console.log("data: ", data);
             this.setState({
               messages: [...this.state.messages, `Peer: ${data}`]
             });
@@ -142,10 +148,19 @@ class ChatRoom extends Component {
       this.sendMessage();
     }
   };
+
+  endCall = () => {
+    this.props.history.push("/dashboard");
+  };
+
   render() {
     return (
       <div className="chatroom-container">
         <div className="video-container">
+          <Link to="/dashboard" className="button">
+            <i className="fas fa-phone-slash"></i>
+          </Link>
+
           <video className="video" muted></video>
         </div>
 

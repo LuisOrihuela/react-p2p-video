@@ -23,6 +23,8 @@ class Dashboard extends Component {
     axios.get("/user/dashboard").then(res => {
       this.setState({ chatrooms: res.data });
     });
+
+    socket.emit("test", localStorage.getItem("creatorID"));
   }
 
   componentDidUpdate() {
@@ -64,19 +66,13 @@ class Dashboard extends Component {
     });
 
     const redirect = "/chatroom/" + localStorage.getItem("id");
-    // this.props.history.push(redirect);
-  };
-
-  checkForUpdates = () => {
-    // axios.get("/user/dashboard").then(res => {
-    //   console.log(res.data);
-    //   this.setState({ chatrooms: res.data });
-    // }, 5000);
+    setTimeout(() => this.props.history.push(redirect), 1000);
   };
 
   render() {
-    // this.checkForUpdates();
-
+    socket.on("my message", data => {
+      console.log(data);
+    });
     return (
       <div className="dashboard-container">
         <NavBar />
@@ -85,8 +81,11 @@ class Dashboard extends Component {
             <h1 className="level-item welcome-title">Welcome to Talk-Talk!</h1>
           </div>
           <div className="level-item instructions">
-            Join a chat room or{" "}
-            <span className="tag is-white" onClick={this.toggleModal}>
+            Join a chat room or
+            <span
+              className="tag is-white tag-spacing"
+              onClick={this.toggleModal}
+            >
               create a new one
             </span>
             <span

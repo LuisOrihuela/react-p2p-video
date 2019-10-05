@@ -23,3 +23,10 @@
   height: 100vh;
   padding-bottom: 30px;
 }
+
+.tag-spacing {
+  padding-left: 10px;
+  margin-left: 10px;
+  font-weight: bold;
+  font-size: 1.3em;
+}

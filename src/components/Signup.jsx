@@ -19,8 +19,8 @@ const Signup = props => {
     };
     axios.post("user/signup", userData).then(res => {
       localStorage.setItem("user", res.data);
-      // props.history.push("/dashboard");
-      props.history.push("/chatroom");
+      props.history.push("/dashboard");
+      // props.history.push("/chatroom");
     });
   };
 

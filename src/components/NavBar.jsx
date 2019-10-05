@@ -6,6 +6,7 @@ const NavBar = () => {
   const removeToken = () => {
     localStorage.removeItem("user");
     localStorage.removeItem("id");
+    localStorage.removeItem("creatorID");
   };
 
   return (
