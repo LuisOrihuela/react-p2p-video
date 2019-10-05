@@ -4,7 +4,8 @@ import NavBar from "./NavBar";
 import ChatCard from "./ChatCard";
 import axios from "./helpers/axios";
 import openSocket from "socket.io-client";
-const socket = openSocket("http://localhost:4000/");
+// const socket = openSocket("http://localhost:4000/");
+const socket = openSocket("https://p2p-backend.herokuapp.com");
 
 class Dashboard extends Component {
   constructor(props) {
