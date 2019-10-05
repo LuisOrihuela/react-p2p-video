@@ -5,6 +5,7 @@ import "./ChatRoom.css";
 
 let client = {};
 let peer;
+const socket = openSocket("http://localhost:4000");
 
 class ChatRoom extends Component {
   state = {
@@ -17,7 +18,6 @@ class ChatRoom extends Component {
 
   //https://p2p-backend.herokuapp.com
   componentDidMount = stream => {
-    const socket = openSocket("https://p2p-backend.herokuapp.com");
     navigator.mediaDevices
       .getUserMedia({
         video: true,
@@ -42,8 +42,8 @@ class ChatRoom extends Component {
             CreateVideo(stream);
           });
           peer.on("close", () => {
-            document.getElementById("peerVideo").remove();
-            peer.destroy();
+            // document.getElementById("peerVideo").remove();
+            // peer.destroy();
           });
           peer.on("data", data => {
             console.log("data: ", data);
@@ -93,7 +93,7 @@ class ChatRoom extends Component {
         };
 
         const CreateVideo = stream => {
-          console.log("Created video");
+          console.log("CreateVideo: ");
           let video = document.createElement("video");
           video.id = "peerVideo";
           video.className = "video";

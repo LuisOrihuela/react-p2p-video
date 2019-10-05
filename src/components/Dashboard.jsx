@@ -3,6 +3,8 @@ import "./Dashboard.css";
 import NavBar from "./NavBar";
 import ChatCard from "./ChatCard";
 import axios from "./helpers/axios";
+import openSocket from "socket.io-client";
+const socket = openSocket("http://localhost:4000/");
 
 class Dashboard extends Component {
   constructor(props) {
@@ -20,6 +22,14 @@ class Dashboard extends Component {
   componentDidMount() {
     axios.get("/user/dashboard").then(res => {
       this.setState({ chatrooms: res.data });
+    });
+  }
+
+  componentDidUpdate() {
+    socket.on("getChatrooms", data => {
+      let updatedChatrooms = data;
+      // console.log([...updatedChatrooms]);
+      this.setState({ chatrooms: [...updatedChatrooms] });
     });
   }
 
@@ -47,21 +57,26 @@ class Dashboard extends Component {
 
     axios.post("/user/dashboard", chatroom).then(res => {
       const chatroom = res.data;
+      const chatrooms = this.state.chatrooms;
       this.setState({ creatorId: chatroom.creatorId });
-      this.setState({ chatrooms: [...this.state.chatrooms, chatroom] });
+      this.setState({ chatrooms: [...chatrooms, chatroom] });
+      socket.emit("chatrooms updated", this.state.chatrooms);
     });
+
     const redirect = "/chatroom/" + localStorage.getItem("id");
-    this.props.history.push(redirect);
+    // this.props.history.push(redirect);
   };
 
   checkForUpdates = () => {
-    axios.get("/user/dashboard").then(res => {
-      console.log(res.data);
-      this.setState({ chatrooms: res.data });
-    }, 5000);
+    // axios.get("/user/dashboard").then(res => {
+    //   console.log(res.data);
+    //   this.setState({ chatrooms: res.data });
+    // }, 5000);
   };
 
   render() {
+    // this.checkForUpdates();
+
     return (
       <div className="dashboard-container">
         <NavBar />
