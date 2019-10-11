@@ -4,7 +4,6 @@ import openSocket from "socket.io-client";
 import Peer from "simple-peer";
 import "./ChatRoom.css";
 import axios from "./helpers/axios";
-let userid = localStorage.getItem("id");
 
 let client = {};
 let peer;
@@ -24,10 +23,16 @@ class ChatRoom extends Component {
 
   componentDidMount = stream => {
     let { id } = this.props.match.params;
+    let userid = localStorage.getItem("id");
+    console.log(userid);
 
     axios.get("/user/" + userid).then(res => {
       this.setState({ name: res.data });
     });
+
+    // axios.get("/user/name", userid).then(res => {
+    //   this.setState({ name: res.data });
+    // });
 
     navigator.mediaDevices
       .getUserMedia({
@@ -196,8 +201,8 @@ class ChatRoom extends Component {
                     <p
                       className={
                         message.startsWith(this.state.name)
-                          ? "message tag is-success"
-                          : "message tag is-link"
+                          ? "message tag is-dark"
+                          : "message tag is-success"
                       }
                     >
                       {message}
