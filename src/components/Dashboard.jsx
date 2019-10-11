@@ -5,7 +5,7 @@ import ChatCard from "./ChatCard";
 import axios from "./helpers/axios";
 import openSocket from "socket.io-client";
 // const socket = openSocket("http://localhost:4000/dashboard");
-const socket = openSocket("https://p2p-backend.herokuapp.com");
+const socket = openSocket("https://p2p-backend.herokuapp.com/dashboard");
 
 class Dashboard extends Component {
   constructor(props) {
@@ -24,8 +24,6 @@ class Dashboard extends Component {
     axios.get("/user/dashboard").then(res => {
       this.setState({ chatrooms: res.data });
     });
-
-    // socket.emit("test", "testing");
   }
 
   componentDidUpdate() {

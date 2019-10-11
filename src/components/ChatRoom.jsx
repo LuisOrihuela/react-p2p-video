@@ -8,7 +8,7 @@ let userid = localStorage.getItem("id");
 
 let client = {};
 let peer;
-const socket = openSocket("https://p2p-backend.herokuapp.com");
+const socket = openSocket("https://p2p-backend.herokuapp.com/chatroom");
 // const socket = openSocket("http://localhost:4000/chatroom");
 
 class ChatRoom extends Component {
