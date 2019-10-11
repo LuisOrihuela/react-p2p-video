@@ -4,7 +4,7 @@ import NavBar from "./NavBar";
 import ChatCard from "./ChatCard";
 import axios from "./helpers/axios";
 import openSocket from "socket.io-client";
-// const socket = openSocket("http://localhost:4000/");
+// const socket = openSocket("http://localhost:4000/dashboard");
 const socket = openSocket("https://p2p-backend.herokuapp.com");
 
 class Dashboard extends Component {
@@ -25,13 +25,13 @@ class Dashboard extends Component {
       this.setState({ chatrooms: res.data });
     });
 
-    socket.emit("test", localStorage.getItem("creatorID"));
+    // socket.emit("test", "testing");
   }
 
   componentDidUpdate() {
     socket.on("getChatrooms", data => {
       let updatedChatrooms = data;
-      // console.log([...updatedChatrooms]);
+      console.log([...updatedChatrooms]);
       this.setState({ chatrooms: [...updatedChatrooms] });
     });
   }
@@ -41,7 +41,11 @@ class Dashboard extends Component {
   };
 
   handleSelection = e => {
-    this.setState({ level: e.target.value });
+    if (e.target.value === "Level") {
+      this.setState({ level: "Beginner" });
+    } else {
+      this.setState({ level: e.target.value });
+    }
   };
 
   handleText = e => {
@@ -71,9 +75,6 @@ class Dashboard extends Component {
   };
 
   render() {
-    socket.on("my message", data => {
-      console.log(data);
-    });
     return (
       <div className="dashboard-container">
         <NavBar />
@@ -84,7 +85,7 @@ class Dashboard extends Component {
           <div className="level-item instructions">
             Join a chat room or
             <span
-              className="tag is-white tag-spacing"
+              className="tag is-primary tag-spacing"
               onClick={this.toggleModal}
             >
               create a new one
@@ -95,16 +96,18 @@ class Dashboard extends Component {
               Create
               <div className="modal-background"></div>
               <div className="modal-content">
-                <form onSubmit={this.handleSubmit}>
-                  <div className="field">
-                    <label className="label">Level</label>
+                <form className="modal-form" onSubmit={this.handleSubmit}>
+                  <p>Create a new chatroom: </p>
+                  <div className="field field-width">
                     <div className="control">
-                      <div className="select">
+                      <div className="select width">
                         <select
                           value={this.state.level}
                           onChange={this.handleSelection}
                           name="level"
+                          className="width"
                         >
+                          <option value="Beginner">Level</option>
                           <option value="Beginner">Beginner</option>
                           <option value="Intermediate">Intermediate</option>
                           <option value="Advanced">Advanced</option>
@@ -112,13 +115,14 @@ class Dashboard extends Component {
                       </div>
                     </div>
                   </div>
-                  <div className="field">
+                  <div className="field field-width">
                     <input
                       placeholder="I would like to talk about..."
                       type="text"
                       name="subject"
                       value={this.state.subject}
                       onChange={this.handleText}
+                      className="width"
                     ></input>
                   </div>
                   <button

@@ -26,7 +26,6 @@ class AuthenticatedComponent extends Component {
         headers: { "auth-token": jwt }
       })
       .then(res => {
-        console.log(res.data);
         localStorage.setItem("id", res.data._id);
         this.setState({ user: res.data });
       })

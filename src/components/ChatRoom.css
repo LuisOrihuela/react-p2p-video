@@ -7,17 +7,55 @@
 
 .video-container {
   width: 100%;
-  height: 100%;
+  height: 100vh;
   background: black;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-around;
+  justify-content: space-evenly;
+  /* display: flex;
+  justify-content: center;
+  align-items: center; */
+  /* display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around; */
+}
+
+.videos {
+  width: 80%;
+  height: 60%;
+  text-align: center;
+  border-radius: 8px;
+}
+
+#local-video {
+  height: 15%;
+  width: 12%;
+  position: absolute;
+  border-radius: 8px;
+  top: 12%;
+  left: 11%;
+}
+
+#peerVideo {
+  height: 100%;
+  /* width: 100%; */
+  border-radius: 10px;
+  margin: 0 auto;
+  background: gray;
+}
+
+.progressbar-container {
+  position: relative;
+  top: -30%;
+  width: 50%;
+  margin: 0 auto;
 }
 
 .messages-container {
   width: 100%;
-  height: 85%;
+  height: 100%;
   box-sizing: border-box;
   scroll-behavior: smooth;
   text-align: start;
@@ -38,10 +76,7 @@
   text-align: left;
   color: blue;
   margin: 0 15px;
-}
-
-.video {
-  width: 40%;
+  display: block;
 }
 
 .chat-container {

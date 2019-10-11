@@ -7,25 +7,42 @@ const Chatcard = ({ creator, level, subject, creatorId }) => {
     localStorage.setItem("creatorID", creatorId);
   };
 
+  const getClassName = level => {
+    if (level === "Beginner") return "tag is-success";
+    if (level === "Intermediate") return "tag is-warning";
+    if (level === "Advanced") return "tag is-danger";
+  };
+
   return (
     <div className="card card-color">
       <header className="card-header">
-        <p className="card-header-title">
-          Host: {creator}
+        <div className="card-header-title">
+          <span className="tag is-link">
+            {" "}
+            <i className="user-icon far fa-user"></i> {creator}
+          </span>
           <br />
-          Level: {level}
-        </p>
-        <a href="#" className="card-header-icon" aria-label="more options">
+          <span className={getClassName(level)}>Level: {level}</span>
+        </div>
+        {/* <a href="#" className="card-header-icon" aria-label="more options">
           <span className="icon">
             <i className="fas fa-angle-down" aria-hidden="true"></i>
           </span>
-        </a>
+        </a> */}
       </header>
       <div className="card-content">
-        <div className="content">
-          Subject: {subject}
-          <br />
-        </div>
+        {(subject && (
+          <div className="content">
+            <span className="tag is-light">Subject: {subject}</span>
+
+            <br />
+          </div>
+        )) || (
+          <div className="content">
+            <span className="tag is-light">Subject: Any subject</span>
+            <br />
+          </div>
+        )}
       </div>
       <footer className="card-footer">
         <Link

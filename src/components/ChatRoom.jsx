@@ -3,11 +3,13 @@ import { Link } from "react-router-dom";
 import openSocket from "socket.io-client";
 import Peer from "simple-peer";
 import "./ChatRoom.css";
-let id = localStorage.getItem("creatorId");
+import axios from "./helpers/axios";
+let userid = localStorage.getItem("id");
 
 let client = {};
 let peer;
 const socket = openSocket("https://p2p-backend.herokuapp.com");
+// const socket = openSocket("http://localhost:4000/chatroom");
 
 class ChatRoom extends Component {
   state = {
@@ -15,23 +17,25 @@ class ChatRoom extends Component {
     newMessage: "",
     buttonStyle: {
       background: "black"
-    }
+    },
+    loading: true,
+    name: ""
   };
 
-  //https://p2p-backend.herokuapp.com
   componentDidMount = stream => {
     let { id } = this.props.match.params;
 
-    // socket.emit("join", id);
+    axios.get("/user/" + userid).then(res => {
+      this.setState({ name: res.data });
+    });
 
-    // console.log(localStorage.getItem("id"));
     navigator.mediaDevices
       .getUserMedia({
         video: true,
         audio: true
       })
       .then(stream => {
-        socket.emit("NewClient");
+        socket.emit("NewClient", { roomId: id });
         let video = document.querySelector("video");
         video.srcObject = stream;
         video.play();
@@ -54,7 +58,7 @@ class ChatRoom extends Component {
           });
           peer.on("data", data => {
             this.setState({
-              messages: [...this.state.messages, `Peer: ${data}`]
+              messages: [...this.state.messages, `${data}`]
             });
           });
 
@@ -63,7 +67,7 @@ class ChatRoom extends Component {
 
         const RemoveVideo = () => {
           console.log("Removing peer video");
-          document.getElementById("peerVideo").remove();
+          // document.getElementById("peerVideo").remove();
         };
 
         //for initiator peer
@@ -100,11 +104,13 @@ class ChatRoom extends Component {
 
         const CreateVideo = stream => {
           console.log("CreateVideo: ");
-          let video = document.createElement("video");
-          video.id = "peerVideo";
-          video.className = "video";
+          // let video = document.createElement("video");
+          let video = document.getElementById("peerVideo");
+          // video.id = "peerVideo";
+          // video.className = "video";
           video.srcObject = stream;
-          document.querySelector(".video-container").appendChild(video);
+          this.setState({ loading: false });
+          // document.querySelector(".video-container").appendChild(video);
           video.play();
         };
 
@@ -126,12 +132,16 @@ class ChatRoom extends Component {
       return;
     } else {
       console.log("send message");
-      peer.send(this.state.newMessage);
+      if (peer) {
+        peer.send(`${this.state.name}: ${this.state.newMessage}`);
+      }
 
       this.setState({
-        newMessage: "",
-        // messages: this.state.messages + "You: " + this.state.newMessage + "\n"
-        messages: [...this.state.messages, `You: ${this.state.newMessage}`]
+        messages: [
+          ...this.state.messages,
+          `${this.state.name}: ${this.state.newMessage}`
+        ],
+        newMessage: ""
       });
     }
   };
@@ -157,11 +167,24 @@ class ChatRoom extends Component {
     return (
       <div className="chatroom-container">
         <div className="video-container">
-          <Link to="/dashboard" className="button">
-            <i className="fas fa-phone-slash"></i>
-          </Link>
+          <div className="videos">
+            <video id="local-video" className="video" muted></video>
+            <video id="peerVideo"></video>
+            {this.state.loading && (
+              <div className="progressbar-container">
+                <progress
+                  className="progress is-primary progressbar"
+                  max="100"
+                />
+              </div>
+            )}
+          </div>
 
-          <video className="video" muted></video>
+          <i
+            onClick={this.endCall}
+            id="btn"
+            className="fas fa-phone-slash button is-danger"
+          ></i>
         </div>
 
         <div className="chat-container divider">
@@ -169,9 +192,18 @@ class ChatRoom extends Component {
             <div id="messages">
               {this.state.messages.map((message, index) => {
                 return (
-                  <p key={index} className="message">
-                    {message}
-                  </p>
+                  <div key={index}>
+                    <p
+                      className={
+                        message.startsWith(this.state.name)
+                          ? "message tag is-success"
+                          : "message tag is-link"
+                      }
+                    >
+                      {message}
+                    </p>
+                    <br />
+                  </div>
                 );
               })}
               {/* {this.state.messages} */}

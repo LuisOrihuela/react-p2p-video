@@ -17,14 +17,14 @@ const Signup = props => {
       email,
       password
     };
-    axios.post("user/signup", userData).then(res => {
+    axios.post("/user/signup", userData).then(res => {
       localStorage.setItem("user", res.data);
       props.history.push("/dashboard");
       // props.history.push("/chatroom");
     });
   };
 
-  const updateUsername = e => {
+  const updateName = e => {
     setName(e.target.value);
   };
 
@@ -37,7 +37,7 @@ const Signup = props => {
   };
   return (
     <div className="flex-container">
-      <div className="box  sign-up-container">
+      <div className="box sign-up-container">
         <form onSubmit={signUp}>
           <div className="tabs">
             <ul>
@@ -54,9 +54,9 @@ const Signup = props => {
               <input
                 className="input is-rounded is-medium"
                 type="text"
-                placeholder="Username"
+                placeholder="Name"
                 value={name}
-                onChange={updateUsername}
+                onChange={updateName}
               />
               <span className="icon is-left">
                 <i className="fas fa-portrait"></i>
